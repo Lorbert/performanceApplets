@@ -1,0 +1,100 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		}
+	    ,{
+            "path" : "pages/category/category",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "分类",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/login/login",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "登录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "详情页",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/mine",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的页面",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/like/like",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "收藏页面",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/enroll/enroll",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "注册",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "演出小程序",
+		"navigationBarBackgroundColor": "#f79b47",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"list": [
+			{
+				"text":"首页",
+				"pagePath":"pages/index/index",
+				"iconPath":"static/icon/index.png",
+				"selectedIconPath":"static/icon/index-active.png"
+			},
+			{
+				"text":"分类",
+				"pagePath":"pages/category/category",
+				"iconPath":"static/icon/category.png",
+				"selectedIconPath":"static/icon/category-active.png"
+			},
+			{
+				"text":"收藏页面",
+				"pagePath":"pages/like/like",
+				"iconPath":"static/icon/collection.png",
+				"selectedIconPath":"static/icon/collection-active.png"
+			},
+			{
+				"text":"我的",
+				"pagePath":"pages/mine/mine",
+				"iconPath":"static/icon/mine.png",
+				"selectedIconPath":"static/icon/mine-active.png"
+			}
+		],
+		"color":"#ccc",
+		"selectedColor":"#f79b47"
+	}
+}
