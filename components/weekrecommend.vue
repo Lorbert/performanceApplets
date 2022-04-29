@@ -1,15 +1,15 @@
 <template>
-	<view class="today-scroll" :style="{width: listenWidth + 'rpx'}">
-		<view class="today-content" v-for="(item,index) in recommends" :key="index">
-			<view class="today-type">
+	<view class="week-scroll" :style="{width: listenWidth + 'rpx'}">
+		<view class="week-content" v-for="(item,index) in recommends" :key="index">
+			<view class="week-type">
 				{{item.cateName}}
 			</view>
 			<image lazy-load="true" :src="item.posterUrl" mode="scaleToFill"></image>
-			<view class="today-discount">
-				{{item.discountRate}}折起
-			</view>
 			<view class="content-title">
 				{{item.name}}
+			</view>
+			<view class="week-price">
+				￥{{item.lowestPrice}}起
 			</view>
 		</view>
 	</view>
@@ -37,9 +37,9 @@
 </script>
 
 <style lang="scss">
-.today-scroll {
+.week-scroll {
 	margin-left: 10rpx;
-	.today-content {
+	.week-content {
 		position: relative;
 		width: 148rpx;
 		display: inline-block;
@@ -50,7 +50,7 @@
 			height: 184rpx;
 			border-radius: 10rpx;
 		}
-		.today-type {
+		.week-type {
 			padding: 8rpx;
 			color: #ffffff;
 			background: rgba(0, 0, 0, 0.6);
@@ -60,15 +60,10 @@
 			border-radius: 10rpx;
 			font-size: 22rpx;
 		}
-		.today-discount {
-			width: 94rpx;
-			height: 40rpx;
-			line-height: 40rpx;
-			border-radius: 15rpx;
-			text-align: center;
-			color: #ffffff;
-			background-color: #f03d37;
-			font-size: 22rpx
+		.week-price {
+			margin-top: 10rpx;
+			font-size: 24rpx;
+			color: #f03d37;
 		}
 		.content-title {
 			width: 100%;

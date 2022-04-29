@@ -1,4 +1,5 @@
 import App from './App'
+import {request} from './network/network.js'
 
 // #ifndef VUE3
 import Vue from 'vue'
@@ -19,3 +20,4 @@ export function createApp() {
   }
 }
 // #endif
+Vue.prototype.sendRequest = request

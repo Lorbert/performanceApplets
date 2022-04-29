@@ -6,14 +6,14 @@
 		</view>
 		<view class="login-content">
 			<view class="login-input">
-				<input type="text" value="" placeholder="账号"/>
-				<input type="text" value="" placeholder="密码"/>
+				<input type="text" v-model="useremail" placeholder="邮箱"/>
+				<input type="text" password="true" v-model="password" placeholder="密码"/>
 			</view>
 			<view class="login-enroll">
 				<navigator  url="../enroll/enroll">注册账号</navigator>
-				<navigation >忘记密码</navigation>
+				<navigator url="./forgetPassword/forgetPassword">忘记密码</navigator>
 			</view>
-			<button class="login-btn" type="default">登录</button>
+			<button class="login-btn" type="default" @click="login">登录</button>
 		</view>
 	</view>
 </template>
@@ -22,11 +22,43 @@
 	export default {
 		data() {
 			return {
-				
+				useremail:'',
+				password:''
+			}
+		},
+		mounted() {
+			const email = uni.getStorageSync('useremail');
+			if(email) {
+				this.useremail = email
+			}
+			const passwords = uni.getStorageSync('passwrod');
+			if(passwords) {
+				this.password = passwords;
 			}
 		},
 		methods: {
-			
+			async login() {
+				const res = await this.sendRequest({
+					url:'/api/login',
+					method:'POST',
+					data:{email:this.useremail,password:this.password}
+				});
+				console.log(res)
+				if(res.data.code == 200) {
+					uni.setStorageSync('token',res.data.token);
+					uni.setStorageSync('useremail',this.useremail);
+					uni.setStorageSync('password',this.password);
+					uni.switchTab({
+						url:'/pages/index/index'
+					})
+					console.log('跳转')
+				} else {
+					uni.showToast({
+						title:res.data.message,
+						icon:"error"
+					})
+				}
+			}
 		}
 	}
 </script>

@@ -1,70 +1,15 @@
 <template>
 	<view class="recommends">
-		<view class="recommendItem">
-			<image src="../static/login/recommend1.png" mode="widthFix"></image>
+		<view class="recommendItem" v-for="(item,index) in recommenditem" :key="index">
+			<image :src="item.posterUrl" mode="widthFix"></image>
 			<view class="recommendItem-title">
-				<p class="recommendItem-address">[{{address}}] {{performName}}</p>
-				<p class="recommendItem-time">{{onSaletime | showTime}} - {{serverTime | showTime}}</p>
+				<p class="recommendItem-address">[{{item.cityName}}] {{item.name}}</p>
+				<p class="recommendItem-time">{{item.onSaleTime | showTime}} - {{item.serverTime | showTime}}</p>
 				<view class="recommendItem-price">
-					<span class="price">￥{{price}}起</span>
-					<span class="like"><uni-icons type="star" color="#f79b47" size="15"></uni-icons>{{likes}}</span>
+					<span class="price">￥{{item.lowestPrice}}起</span>
+					<span class="like"><uni-icons type="star" color="#f79b47" size="15"></uni-icons>{{item.likes}}</span>
 				</view>
 			</view>
-		</view>
-		<view class="recommendItem">
-			<image src="../static/login/recommend.png" mode="widthFix"></image>
-			<view class="recommendItem-title">
-							<p class="recommendItem-address">[{{address}}] {{performName}}</p>
-							<p class="recommendItem-time">{{onSaletime | showTime}} - {{serverTime | showTime}}</p>
-							<view class="recommendItem-price">
-								<span class="price">￥ {{price}} 起</span>
-								<span class="like"><uni-icons type="star" color="#f79b47" size="15"></uni-icons>{{likes}}</span>
-							</view>
-						</view>
-		</view>
-		<view class="recommendItem">
-			<image src="../static/login/recommend.png" mode="widthFix"></image>
-			<view class="recommendItem-title">
-							<p class="recommendItem-address">[{{address}}] {{performName}}</p>
-							<p class="recommendItem-time">{{onSaletime | showTime}} - {{serverTime | showTime}}</p>
-							<view class="recommendItem-price">
-								<span class="price">￥{{price}}起</span>
-								<span class="like"><uni-icons type="star" color="#f79b47" size="15"></uni-icons>{{likes}}</span>
-							</view>
-						</view>
-		</view>
-		<view class="recommendItem">
-			<image src="../static/login/recommend1.png" mode="widthFix"></image>
-			<view class="recommendItem-title">
-							<p class="recommendItem-address">[{{address}}] {{performName}}</p>
-							<p class="recommendItem-time">{{onSaletime | showTime}} - {{serverTime | showTime}}</p>
-							<view class="recommendItem-price">
-								<span class="price">￥{{price}}起</span>
-								<span class="like"><uni-icons type="star" color="#f79b47" size="15"></uni-icons>{{likes}}</span>
-							</view>
-						</view>
-		</view>
-		<view class="recommendItem">
-			<image src="../static/login/recommend.png" mode="widthFix"></image>
-			<view class="recommendItem-title">
-							<p class="recommendItem-address">[{{address}}] {{performName}}</p>
-							<p class="recommendItem-time">{{onSaletime | showTime}} - {{serverTime | showTime}}</p>
-							<view class="recommendItem-price">
-								<span class="price">￥{{price}}起</span>
-								<span class="like"><uni-icons type="star" color="#f79b47" size="15"></uni-icons>{{likes}}</span>
-							</view>
-						</view>
-		</view>
-		<view class="recommendItem">
-			<image src="../static/login/recommend.png" mode="widthFix"></image>
-			<view class="recommendItem-title">
-							<p class="recommendItem-address">[{{address}}] {{performName}}</p>
-							<p class="recommendItem-time">{{onSaletime | showTime}} - {{serverTime | showTime}}</p>
-							<view class="recommendItem-price">
-								<span class="price">￥{{price}}起</span>
-								<span class="like"><uni-icons type="star" color="#f79b47" size="15"></uni-icons>{{likes}}</span>
-							</view>
-						</view>
 		</view>
 	</view>
 </template>
@@ -75,13 +20,14 @@
 		name:"recommendItem",
 		data() {
 			return {
-				address:'广州',
-				performName:'邂逅·陈奕迅烛光音乐会一起来看看吧，朝韩看',
-				onSaletime: 1644489816000,
-				serverTime: 1650039181071,
-				price: '148',
-				likes:'150',
+				flag:false
 			};
+		},
+		props: {
+			recommenditem:{
+				type:Array,
+				default:[]
+			}
 		},
 		filters: {
 			showTime(value) {
@@ -89,7 +35,7 @@
 				console.log('时间戳:',DateTime)
 				return formatDate(DateTime, 'yyyy-MM-dd')
 			}
-		}
+		},
 	}
 </script>
 
@@ -97,10 +43,10 @@
 .recommends {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-around;
-	padding: 0 16rpx;
+	justify-content: space-between;
+	padding: 0 22rpx;
 	.recommendItem {
-		width: 46%;
+		width: 48%;
 		padding-bottom: 150rpx;
 		position: relative;
 		margin: 10rpx 0;
