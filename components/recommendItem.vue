@@ -1,6 +1,6 @@
 <template>
 	<view class="recommends">
-		<view class="recommendItem" v-for="(item,index) in recommenditem" :key="index">
+		<view class="recommendItem" v-for="(item,index) in recommenditem" :key="index" @click="itemNavto(item.performanceId)">
 			<image :src="item.posterUrl" mode="widthFix"></image>
 			<view class="recommendItem-title">
 				<p class="recommendItem-address">[{{item.cityName}}] {{item.name}}</p>
@@ -32,10 +32,16 @@
 		filters: {
 			showTime(value) {
 				const DateTime = new Date(value);
-				console.log('时间戳:',DateTime)
 				return formatDate(DateTime, 'yyyy-MM-dd')
 			}
 		},
+		methods: {
+			itemNavto(value) {
+				uni.navigateTo({
+					url:'/pages/detail/detail?performanceId=' + value
+				})
+			}
+		}
 	}
 </script>
 

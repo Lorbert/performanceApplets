@@ -30,7 +30,8 @@
             {
                 "navigationBarTitleText": "详情页",
                 "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "#ffffff"
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
             }
             
         }
@@ -75,7 +76,15 @@
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "演出小程序",
 		"navigationBarBackgroundColor": "#f79b47",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"titleNView": {
+				"autoBackButton": true,
+				"backButton": {
+					"color": "black"
+				}
+			}
+		}
 	},
 	"tabBar": {
 		"list": [

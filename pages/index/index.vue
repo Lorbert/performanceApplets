@@ -97,7 +97,10 @@
 	            this.amapPlugin.getRegeo({  
 	                success: (data) => {  
 	                    console.log(data,'看这里')  
-	                    this.addressName = data[0].regeocodeData.addressComponent.district;  
+	                    this.addressName = data[0].regeocodeData.addressComponent.district; 
+						const location = {latitude:data[0].latitude,longitude:data[0].longitude};
+						uni.setStorageSync('location',location);
+						console.log('存储的地理位置',uni.getStorageSync('location'));
 	                    uni.hideLoading();  
 						this.code = data[0].regeocodeData.addressComponent.adcode.split('')
 						this.code.splice(4,2,0,0)
@@ -111,6 +114,7 @@
 					url:'/my/userinfo',
 					method:'GET',
 				})
+				uni.setStorageSync('userinfo',res.data.data);
 				this.userinteres = res.data.data.user_interesting.split(',').map(v => Number(v))
 			},
 			async getPerforminfo(value) {

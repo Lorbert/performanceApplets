@@ -1,6 +1,6 @@
 <template>
 	<view class="week-scroll" :style="{width: listenWidth + 'rpx'}">
-		<view class="week-content" v-for="(item,index) in recommends" :key="index">
+		<view class="week-content" v-for="(item,index) in recommends" :key="index" @click="navtos(item.performanceId)">
 			<view class="week-type">
 				{{item.cateName}}
 			</view>
@@ -32,6 +32,13 @@
 			listenWidth() {
 				return this.recommends.length*172
 			},
+		},
+		methods: {
+			navtos(value) {
+				uni.navigateTo({
+					url:'/pages/detail/detail?performanceId=' + value
+				})
+			}
 		}
 	}
 </script>

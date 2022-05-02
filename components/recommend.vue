@@ -1,6 +1,6 @@
 <template>
 	<view class="today-scroll" :style="{width: listenWidth + 'rpx'}">
-		<view class="today-content" v-for="(item,index) in recommends" :key="index">
+		<view class="today-content" v-for="(item,index) in recommends" :key="index" @click="navto(item.performanceId)">
 			<view class="today-type">
 				{{item.cateName}}
 			</view>
@@ -32,6 +32,13 @@
 			listenWidth() {
 				return this.recommends.length*172
 			},
+		},
+		methods: {
+			navto(value) {
+				uni.navigateTo({
+					url:'/pages/detail/detail?performanceId=' + value
+				})
+			}
 		}
 	}
 </script>
