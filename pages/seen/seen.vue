@@ -23,7 +23,7 @@
 		methods: {
 			async getUserLike() {
 				const res = await this.sendRequest({
-					url:'/my/userinfo/userlike',
+					url:'/my/userinfo/userseen',
 					method:'GET'
 				})
 				this.userLikes = res.data.data

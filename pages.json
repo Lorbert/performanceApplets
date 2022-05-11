@@ -71,6 +71,34 @@
             }
             
         }
+        ,{
+            "path" : "pages/pay/pay",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择票档",
+				"navigationBarBackgroundColor": "#2d2c4c",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "搜索",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/seen/seen",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "看过",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

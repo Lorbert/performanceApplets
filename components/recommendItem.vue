@@ -1,6 +1,6 @@
 <template>
 	<view class="recommends">
-		<view class="recommendItem" v-for="(item,index) in recommenditem" :key="index" @click="itemNavto(item.performanceId)">
+		<view class="recommendItem" v-for="(item,index) in recommenditem" :key="index" @click="itemNavto(item.performanceId,item.categoryId)">
 			<image :src="item.posterUrl" mode="widthFix"></image>
 			<view class="recommendItem-title">
 				<p class="recommendItem-address">[{{item.cityName}}] {{item.name}}</p>
@@ -36,9 +36,9 @@
 			}
 		},
 		methods: {
-			itemNavto(value) {
+			itemNavto(value1,value2) {
 				uni.navigateTo({
-					url:'/pages/detail/detail?performanceId=' + value
+					url:'/pages/detail/detail?performanceId=' + value1 + '&categoryId=' + value2
 				})
 			}
 		}

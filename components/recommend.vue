@@ -1,6 +1,6 @@
 <template>
 	<view class="today-scroll" :style="{width: listenWidth + 'rpx'}">
-		<view class="today-content" v-for="(item,index) in recommends" :key="index" @click="navto(item.performanceId)">
+		<view class="today-content" v-for="(item,index) in recommends" :key="index" @click="navto(item.performanceId,item.categoryId)">
 			<view class="today-type">
 				{{item.cateName}}
 			</view>
@@ -34,9 +34,9 @@
 			},
 		},
 		methods: {
-			navto(value) {
+			navto(value1,value2) {
 				uni.navigateTo({
-					url:'/pages/detail/detail?performanceId=' + value
+					url:'/pages/detail/detail?performanceId=' + value1 + '&categoryId=' + value2
 				})
 			}
 		}

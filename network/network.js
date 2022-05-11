@@ -33,12 +33,15 @@ export function request(config) {
 			success: (res) => {
 				if(res.statusCode !== 200) {
 					return uni.showToast({
-						title:"获取数据失败"
+						title:"获取数据失败",
+						icon:'error'
 					})
 				}
-				uni.showToast({
-					title:res.data.message
-				})
+				if(res.data.message) {
+					uni.showToast({
+						title:res.data.message
+					})
+				}
 				resolve(res)
 			},
 			fail: (err) => {

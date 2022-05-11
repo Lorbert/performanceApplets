@@ -34,11 +34,11 @@
 				</view>
 			</view>
 			<view class="userLike">
-				<view class="like">
-					<uni-icons type="heart-filled" :color="seen" size="18"></uni-icons><span>{{wantSee}}</span>
+				<view class="like" @click="userwant">
+					<uni-icons type="heart-filled" :color="likecolor" size="18" ></uni-icons><span>{{wantSee}}</span>
 				</view>
-				<view class="like">
-					<uni-icons type="star-filled" :color="like" size="18"></uni-icons><span>{{haveSeen}}</span>
+				<view class="like" @click="userseen">
+					<uni-icons type="star-filled" :color="seencolor" size="18" ></uni-icons><span>{{haveSeen}}</span>
 				</view>
 			</view>
 		</view>
@@ -51,14 +51,18 @@
 		name:"detailTop",
 		data() {
 			return {
-				latitude:0,
-				longitude:0,
+				latitude:null,
+				longitude:null,
 				covers:[],
 				coverLine:[],
-				seen: '#ffffff',
-				wantSee:'想看',
-				like:'#ffffff',
-				haveSeen:'看过'
+				seencolor: '#ffffff',
+				wantSee:'收藏',
+				likecolor:'#ffffff',
+				haveSeen:'看过',
+				performId:null,
+				likes: [],
+				seen:[],
+				performLikes:null
 			}
 		},
 		props:{
@@ -68,34 +72,21 @@
 			}
 		},
 		mounted() {
-			console.log('我的位置',uni.getStorageSync('location'))
-			this.latitude = (uni.getStorageSync('location').latitude + this.detailTopInfo.lat) / 2;
-			this.longitude = (uni.getStorageSync('location').longitude + this.detailTopInfo.ing) / 2;
-			this.covers = [{
-					id:0,
-					width:30,
-					height:30,
-		            latitude: this.detailTopInfo.lat,
-		            longitude: this.detailTopInfo.ing,
-		            iconPath: '../static/icon/location_flag.png',
-					title:this.detailTopInfo.address,
-					
-		        }, {
-					id:1,
-					width:30,
-					height:30,
-		            latitude: uni.getStorageSync('location').latitude,
-		            longitude: uni.getStorageSync('location').longitude,
-		            iconPath: '../static/icon/location_home.png',
-					title:'目前的位置',
-					}];
-			this.coverLine = [{
-					points:[{latitude: uni.getStorageSync('location').latitude,longitude: uni.getStorageSync('location').longitude},{latitude: this.detailTopInfo.lat,longitude: this.detailTopInfo.ing}],
-					color:'#f79b47',
-					arrowLine:true,
-					width: 4,
-					borderWidth:1
-				}]
+			setTimeout(() => {
+				this.performId = this.detailTopInfo.performanceId;
+				this.likes = this.detailTopInfo.wantsee;
+				this.seen = this.detailTopInfo.haveseen;
+				this.performLikes = this.detailTopInfo.likes;
+				if(this.likes.includes(this.performId)) {
+					this.likecolor = '#f03d37';
+					this.wantSee = '已收藏'
+				}
+				if(this.seen.includes(this.performId)) {
+					this.seencolor = '#ffd01e';
+					this.haveSeen = '已看过'
+				}
+				this.init()
+			})
 		},
 		filters: {
 			showTime(value) {
@@ -104,9 +95,80 @@
 			}
 		},
 		methods: {
-			
+			init() {
+				this.latitude =  (this.detailTopInfo.lat+uni.getStorageSync('location').latitude)/2;
+				this.longitude = (this.detailTopInfo.ing+uni.getStorageSync('location').longitude)/2;
+				this.covers = [{
+						id:0,
+						width:30,
+						height:30,
+				        latitude: this.detailTopInfo.lat,
+				        longitude: this.detailTopInfo.ing,
+				        iconPath: '../static/icon/location_flag.png',
+						title:this.detailTopInfo.address,
+						
+				    }, {
+						id:1,
+						width:30,
+						height:30,
+				        latitude: uni.getStorageSync('location').latitude,
+				        longitude: uni.getStorageSync('location').longitude,
+				        iconPath: '../static/icon/location_home.png',
+						title:'目前的位置',
+						}];
+				this.coverLine = [{
+						points:[{latitude: uni.getStorageSync('location').latitude,longitude: uni.getStorageSync('location').longitude},{latitude: this.detailTopInfo.lat,longitude: this.detailTopInfo.ing}],
+						color:'#f79b47',
+						arrowLine:true,
+						width: 4,
+						borderWidth:1
+					}];
+			},
+			async userwant() {
+				if(this.likes.includes(this.performId)) {
+					const num = this.likes.indexOf(this.performId)
+					this.likes.splice(num,1);
+					this.likecolor = '#ffffff';
+					this.wantSee = '收藏';
+					this.performLikes--;
+				} else {
+					this.likes.push(this.performId)
+					this.likecolor = '#f03d37';
+					this.wantSee = '已收藏';
+					this.performLikes++;
+				}
+				this.likes = this.likes.join(',')
+				const res = await this.sendRequest({
+					url:'/my/updatelikes',
+					method:'POST',
+					data:{likes:this.likes}
+				})
+				const performres = await this.sendRequest({
+					url:'/perform/detail/userlikes',
+					method:'POST',
+					data:{performanceId:this.performId,likes:this.performLikes}
+				})
+			},
+			async userseen() {
+				if(this.seen.includes(this.performId)) {
+					const num = this.seen.indexOf(this.performId)
+					this.seen.splice(num,1);
+					this.seencolor = '#ffffff';
+					this.haveSeen = '看过';
+				} else {
+					this.seen.push(this.performId);
+					this.seencolor = '#ffd01e';
+					this.haveSeen = '已看过'
+				}
+				this.seen = this.seen.join(',')
+				const res = await this.sendRequest({
+					url:'/my/updateseen',
+					method:'POST',
+					data:{likes:this.seen}
+				})
+			}
 		},
-		
+			
 	}
 </script>
 

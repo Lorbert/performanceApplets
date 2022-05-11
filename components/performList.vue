@@ -1,116 +1,21 @@
 <template>
 	<view class="performList">
-		<view class="boxList">
+		<view class="boxList" v-for="(item,index) in recommendList" @click="navtoDetail(item.performanceId,item.categoryId)">
 			<view class="box-image">
-				<image src="../static/login/recommend.png" mode="scaleToFill"></image>
+				<image :src="item.posterUrl" mode="scaleToFill"></image>
 			</view>
 			<view class="box-info">
 				<view class="performInfo">
 					<view class="performInfo-name">
-						{{name}}
+						{{item.name}}
 					</view>
 					<view class="performInfo-time">
-						<span>{{time}}</span>
-						<span>{{cityname}} {{shopname}}</span>
+						<span>{{item.onSaleTime | showTime}} - {{item.serverTime | showTime}}</span>
+						<span>{{item.cityName}} {{item.shopName}}</span>
 					</view>
 				</view>
 				<view class="performPrice">
-					{{price}}
-				</view>
-			</view>
-		</view>
-		<view class="boxList">
-			<view class="box-image">
-				<image src="../static/login/recommend.png" mode="scaleToFill"></image>
-			</view>
-			<view class="box-info">
-				<view class="performInfo">
-					<view class="performInfo-name">
-						{{name}}
-					</view>
-					<view class="performInfo-time">
-						<span>{{time}}</span>
-						<span>{{cityname}} {{shopname}}</span>
-					</view>
-				</view>
-				<view class="performPrice">
-					{{price}}
-				</view>
-			</view>
-		</view>
-		<view class="boxList">
-			<view class="box-image">
-				<image src="../static/login/recommend.png" mode="scaleToFill"></image>
-			</view>
-			<view class="box-info">
-				<view class="performInfo">
-					<view class="performInfo-name">
-						{{name}}
-					</view>
-					<view class="performInfo-time">
-						<span>{{time}}</span>
-						<span>{{cityname}} {{shopname}}</span>
-					</view>
-				</view>
-				<view class="performPrice">
-					{{price}}
-				</view>
-			</view>
-		</view>
-		<view class="boxList">
-			<view class="box-image">
-				<image src="../static/login/recommend.png" mode="scaleToFill"></image>
-			</view>
-			<view class="box-info">
-				<view class="performInfo">
-					<view class="performInfo-name">
-						{{name}}
-					</view>
-					<view class="performInfo-time">
-						<span>{{time}}</span>
-						<span>{{cityname}} {{shopname}}</span>
-					</view>
-				</view>
-				<view class="performPrice">
-					{{price}}
-				</view>
-			</view>
-		</view>
-		<view class="boxList">
-			<view class="box-image">
-				<image src="../static/login/recommend.png" mode="scaleToFill"></image>
-			</view>
-			<view class="box-info">
-				<view class="performInfo">
-					<view class="performInfo-name">
-						{{name}}
-					</view>
-					<view class="performInfo-time">
-						<span>{{time}}</span>
-						<span>{{cityname}} {{shopname}}</span>
-					</view>
-				</view>
-				<view class="performPrice">
-					{{price}}
-				</view>
-			</view>
-		</view>
-		<view class="boxList">
-			<view class="box-image">
-				<image src="../static/login/recommend.png" mode="scaleToFill"></image>
-			</view>
-			<view class="box-info">
-				<view class="performInfo">
-					<view class="performInfo-name">
-						{{name}}
-					</view>
-					<view class="performInfo-time">
-						<span>{{time}}</span>
-						<span>{{cityname}} {{shopname}}</span>
-					</view>
-				</view>
-				<view class="performPrice">
-					{{price}}
+					{{item.lowestPrice}}元起
 				</view>
 			</view>
 		</view>
@@ -118,16 +23,31 @@
 </template>
 
 <script>
+	import {formatDate} from '@/common/utils.js'
 	export default {
 		name:"performList",
 		data() {
 			return {
-				name:"邂逅·陈奕迅烛光音乐会邂逅·陈奕迅烛光音乐会邂逅·陈奕迅烛光音乐会",
-				time:'2022.5.1-2022.5.31',
-				shopname:"One photo 洞穴简约艺术空间",
-				cityname:'广州',
-				price:'79-598元'
 			};
+		},
+		props: {
+			recommendList: {
+				type:Array,
+				default:[]
+			}
+		},
+		filters: {
+			showTime(value) {
+				const DateTime = new Date(value);
+				return formatDate(DateTime, 'yyyy-MM-dd')
+			}
+		},
+		methods: {
+			navtoDetail(value1,value2) {
+				uni.navigateTo({
+					url:'/pages/detail/detail?performanceId=' + value1 + '&categoryId=' + value2
+				})
+			}
 		}
 	}
 </script>
@@ -172,6 +92,7 @@
 			}
 			.performPrice {
 				font-size: 30rpx;
+				color: #f03d37;
 			}
 		}
 	}

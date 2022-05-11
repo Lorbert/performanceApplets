@@ -9,7 +9,7 @@
 				 <uni-icons type="bottom" size="15" class="icon-buttom"></uni-icons>
 				</uni-data-picker>
 			</view>
-			<view class="index-search">
+			<view class="index-search" @click="toSearch">
 				<uni-icons class="index-searchicon" color="#f79b47" type="search" size="20"></uni-icons>
 				<input class="index-input" name="input" placeholder="找演出,场馆" />
 			</view>
@@ -83,9 +83,11 @@
 	        this.amapPlugin = new amap.AMapWX({  
 	            key: this.key  
 	        });  
+	    }, 
+		onShow() {
 			this.getRegeo(); 
 			this.getUserinfo();
-	    }, 
+		},
 		 mounted() {
 		 	
 		 },
@@ -173,8 +175,12 @@
 			selectData(value) {
 				this.isActive = value ? true : false;
 				this.dataRecommend = value ? this.weekRecommend : this.monthRecommend
+			},
+			toSearch() {
+				uni.navigateTo({
+					url:'/pages/search/search'
+				})
 			}
-			
 	    },
 		computed: {
 			
